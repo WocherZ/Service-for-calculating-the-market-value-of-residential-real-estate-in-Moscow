@@ -1,6 +1,7 @@
 package com.plugins
 
 import com.routes.flatRouting
+import com.routes.userRouting
 import io.ktor.server.routing.*
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -14,5 +15,6 @@ fun Application.configureRouting() {
             call.respondText("Hello World!")
         }
         flatRouting()
+        userRouting()
     }
 }

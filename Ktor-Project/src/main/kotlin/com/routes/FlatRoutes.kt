@@ -1,12 +1,33 @@
 package com.routes
 
 import com.models.*
+import com.valuation.estimationFlatsPrice
+import java.net.http.HttpRequest
 import io.ktor.server.routing.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpResponse
+
+fun Flat.toMap(): Map<String, String> {
+    return mapOf(
+        "location" to this.location,
+        "rooms" to this.rooms,
+        "category" to this.category,
+        "floors" to this.floors,
+        "walls_material" to this.walls_material,
+        "floor" to this.floor,
+        "total_area" to this.total_area,
+        "kitchen_area" to this.kitchen_area,
+        "is_balcony" to this.is_balcony,
+        "metro_distance" to this.metro_distance,
+        "condition" to this.condition,
+        "price" to this.price
+    )
+}
 
 fun ArrayList<String>.addFlatAsString(flat: Flat) {
     this.add(flat.location)
@@ -26,13 +47,14 @@ fun ArrayList<String>.addFlatAsString(flat: Flat) {
 
 fun Route.flatRouting() {
     route("/api") {
-
         post("/standard") {// Получение эталонных объектов
             println("/standard post")
             val receivedData: Map<String, Flat?> = call.receive<Map<String, Flat?>>()  // Получение данных
-            //standardFlats = receivedData
-            //val receivedData: Map<Any, Any?> = call.receive()
-            println(receivedData)
+            for ( flat in receivedData.values ) {
+                if (flat != null) {
+                    standardFlats.add(flat)
+                }
+            }
             call.respondText("OK", status = HttpStatusCode.Created)
         }
 
@@ -40,21 +62,21 @@ fun Route.flatRouting() {
             println("/analogs post")
             val receivedData: ArrayList<Flat> = call.receive<ArrayList<Flat>>()  // Получение данных
             analogsFlats = receivedData
-            println(receivedData)
             call.respondText("OK", status = HttpStatusCode.Created)
         }
 
         get("/analogs") {// Отправка квартир-аналогов
             println("/analogs get")
-            analogsFlats.add(flat1)
-            analogsFlats.add(flat2)
-            val resultData: ArrayList<ArrayList<String>> = ArrayList<ArrayList<String>>()
-            for (value in analogsFlats) {
-                val flatArray: ArrayList<String> = ArrayList<String>();
-                flatArray.addFlatAsString(value.also {
-                    it.price = "101010101"
-                })
-                resultData.add(flatArray)
+            val resultData: ArrayList<ArrayList<String>> = ArrayList();
+            for (flat in analogsFlats) {
+                val params = flat.toMap()
+                val urlParams = params.map{ (k, v) -> "${k}=${v}" }.joinToString("&")
+                val url: String = "http://127.0.0.1:5000?${urlParams}"
+                println(url)
+                val client = HttpClient.newBuilder().build()
+                val request = HttpRequest.newBuilder().uri(URI.create(url)).build()
+                val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+
             }
             call.respond(resultData)
         }
@@ -63,20 +85,17 @@ fun Route.flatRouting() {
             println("/estimations post")
             val receivedData: ArrayList<Flat> = call.receive<ArrayList<Flat>>()  // Получение данных
             estimationFlats = receivedData
-            println(receivedData)
-            //call.respondText("OK", status = HttpStatusCode.Created)
             call.respond(HttpStatusCode.OK)
         }
 
         get("/estimations") {// Отправка всех объектов оценки
             println("/estimations get")
             val resultData: ArrayList<ArrayList<String>> = ArrayList<ArrayList<String>>()
-            for (value in analogsFlats) {
-                val flatArray: ArrayList<String> = ArrayList<String>();
-                flatArray.addFlatAsString(value.also {
-                    it.price = "123456789"
-                })
-                resultData.add(flatArray)
+            estimationFlats = estimationFlatsPrice(analogsFlats, standardFlats, estimationFlats)
+            for (flat in estimationFlats) {
+                val array: ArrayList<String> = ArrayList()
+                array.addFlatAsString(flat)
+                resultData.add(array)
             }
             call.respond(resultData)
         }

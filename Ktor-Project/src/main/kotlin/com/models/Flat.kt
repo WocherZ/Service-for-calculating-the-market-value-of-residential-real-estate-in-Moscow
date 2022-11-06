@@ -24,18 +24,18 @@ var standardFlats: ArrayList<Flat> = ArrayList<Flat>()
 var estimationFlats: ArrayList<Flat> = ArrayList<Flat>()
 //
 val flat1: Flat = Flat(
-    "г. Москва ул. Москворечье д.19",
+    "г.Москваул.Москворечьед.19",
     "1",
     "Новостройка",
     "5",
-    "Пенопласт",
+    "монолит",
     "4",
-    "15.5",
-    "0.5",
+    "30.0",
+    "5.5",
     "Да",
     "15",
-    "Без ремонта",
-    "235000",
+    "Безремонта",
+    "",
 )
 
 val flat2: Flat = Flat(
