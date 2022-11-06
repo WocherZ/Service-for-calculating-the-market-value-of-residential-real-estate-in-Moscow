@@ -25,7 +25,9 @@ fun ArrayList<String>.addFlatAsString(flat: Flat) {
 
 
 fun Route.flatRouting() {
-        post ("/standard") {// Получение эталонных объектов
+    route("/api") {
+
+        post("/standard") {// Получение эталонных объектов
             println("/standard post")
             val receivedData: Map<String, Flat?> = call.receive<Map<String, Flat?>>()  // Получение данных
             //standardFlats = receivedData
@@ -34,7 +36,7 @@ fun Route.flatRouting() {
             call.respondText("OK", status = HttpStatusCode.Created)
         }
 
-        post ("/analogs") {// Получение выбранных пользователем квартир-аналогов
+        post("/analogs") {// Получение выбранных пользователем квартир-аналогов
             println("/analogs post")
             val receivedData: ArrayList<Flat> = call.receive<ArrayList<Flat>>()  // Получение данных
             analogsFlats = receivedData
@@ -42,7 +44,7 @@ fun Route.flatRouting() {
             call.respondText("OK", status = HttpStatusCode.Created)
         }
 
-        get ("/analogs") {// Отправка квартир-аналогов
+        get("/analogs") {// Отправка квартир-аналогов
             println("/analogs get")
             analogsFlats.add(flat1)
             analogsFlats.add(flat2)
@@ -57,7 +59,7 @@ fun Route.flatRouting() {
             call.respond(resultData)
         }
 
-        post ("/estimations") {// Получение объектов оценки
+        post("/estimations") {// Получение объектов оценки
             println("/estimations post")
             val receivedData: ArrayList<Flat> = call.receive<ArrayList<Flat>>()  // Получение данных
             estimationFlats = receivedData
@@ -80,17 +82,27 @@ fun Route.flatRouting() {
         }
 
         options("/estimations") {
-            call.response.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")//setHeader("Access-Control-Allow-Origin", "*")
+            call.response.header(
+                "Access-Control-Allow-Headers",
+                "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+            )
             call.respond(HttpStatusCode.OK)
         }
 
         options("/analogs") {
-            call.response.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")//setHeader("Access-Control-Allow-Origin", "*")
+            call.response.header(
+                "Access-Control-Allow-Headers",
+                "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+            )
             call.respond(HttpStatusCode.OK)
         }
 
         options("/standard") {
-            call.response.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")//setHeader("Access-Control-Allow-Origin", "*")
+            call.response.header(
+                "Access-Control-Allow-Headers",
+                "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+            )
             call.respond(HttpStatusCode.OK)
         }
+    }
 }
