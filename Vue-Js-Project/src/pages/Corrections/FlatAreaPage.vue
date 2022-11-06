@@ -1,0 +1,75 @@
+<template>
+  <q-markup-table class="text-center text-h6" bordered>
+    <thead>
+      <tr>
+        <th colspan="2" rowspan="2">Площадь квартиры (кв.м)</th>
+        <th colspan="6">Объект-аналог</th>
+      </tr>
+      <tr>
+        <th>&lt;30</th>
+        <th>30-50</th>
+        <th>50-65</th>
+        <th>65-90</th>
+        <th>90-120</th>
+        <th>&gt;120</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="6">Объект оценки</td>
+        <td>&lt;30</td>
+        <td>0%</td>
+        <td>6%</td>
+        <td>14%</td>
+        <td>21%</td>
+        <td>28%</td>
+        <td>31%</td>
+      </tr>
+      <tr>
+        <td>30-50</td>
+        <td>-6%</td>
+        <td>0%</td>
+        <td>7%</td>
+        <td>14%</td>
+        <td>21%</td>
+        <td>24%</td>
+      </tr>
+      <tr>
+        <td>50-65</td>
+        <td>-12%</td>
+        <td>-7%</td>
+        <td>0%</td>
+        <td>6%</td>
+        <td>13%</td>
+        <td>16%</td>
+      </tr>
+      <tr>
+        <td>65-90</td>
+        <td>-17%</td>
+        <td>-12%</td>
+        <td>-6%</td>
+        <td>0%</td>
+        <td>6%</td>
+        <td>9%</td>
+      </tr>
+      <tr>
+        <td>90-120</td>
+        <td>-22%</td>
+        <td>-17%</td>
+        <td>-11%</td>
+        <td>-6%</td>
+        <td>0%</td>
+        <td>3%</td>
+      </tr>
+      <tr>
+        <td>&gt;120</td>
+        <td>-24%</td>
+        <td>-19%</td>
+        <td>-13%</td>
+        <td>-8%</td>
+        <td>-3%</td>
+        <td>0%</td>
+      </tr>
+    </tbody>
+  </q-markup-table>
+</template>

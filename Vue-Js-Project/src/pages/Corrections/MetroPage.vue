@@ -1,0 +1,75 @@
+<template>
+  <q-markup-table class="text-center text-h6" bordered>
+    <thead>
+      <tr>
+        <th colspan="2" rowspan="2">Расстояние до метро (мин.пешком)</th>
+        <th colspan="6">Объект-аналог</th>
+      </tr>
+      <tr>
+        <th>&lt;5</th>
+        <th>5-10</th>
+        <th>10-15</th>
+        <th>15-30</th>
+        <th>30-60</th>
+        <th>60-90</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="6">Объект оценки</td>
+        <td>&lt;5</td>
+        <td>0%</td>
+        <td>7%</td>
+        <td>12%</td>
+        <td>17%</td>
+        <td>24%</td>
+        <td>29%</td>
+      </tr>
+      <tr>
+        <td>5-10</td>
+        <td>-7%</td>
+        <td>0%</td>
+        <td>4%</td>
+        <td>9%</td>
+        <td>15%</td>
+        <td>20%</td>
+      </tr>
+      <tr>
+        <td>10-15</td>
+        <td>-11%</td>
+        <td>-4%</td>
+        <td>0%</td>
+        <td>5%</td>
+        <td>11%</td>
+        <td>15%</td>
+      </tr>
+      <tr>
+        <td>15-30</td>
+        <td>-15%</td>
+        <td>-8%</td>
+        <td>-5%</td>
+        <td>0%</td>
+        <td>6%</td>
+        <td>10%</td>
+      </tr>
+      <tr>
+        <td>30-60</td>
+        <td>-19%</td>
+        <td>-13%</td>
+        <td>-10%</td>
+        <td>-6%</td>
+        <td>0%</td>
+        <td>4%</td>
+      </tr>
+      <tr>
+        <td>60-90</td>
+        <td>-22%</td>
+        <td>-17%</td>
+        <td>-13%</td>
+        <td>-9%</td>
+        <td>-4%</td>
+        <td>0%</td>
+      </tr>
+    </tbody>
+  </q-markup-table>
+</template>
